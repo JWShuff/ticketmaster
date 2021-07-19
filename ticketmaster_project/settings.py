@@ -16,15 +16,29 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#import env:
+root=environ.Path(__file__) -3 #Get root of project?
+env=environ.Env()
+
+environ.Env.read_env()
+SITE_ROOT=root()
+
+NEWS_API_KEY = env.str('NEWS_API_KEY')
+TICKET_MASTER_API_KEY = env.str('TICKETMASTER_SECRET_KEY')
+MAPS_EMBED_KEY= env.str('MAPS_EMBED_KEY')
+
+# DEBUG=env('DEBUG')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c4p6%6%szdgr7w)jt1pyi)o$z)qd(ng%-f1tf9^ww35aldr5wf'
+SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = 'django-insecure-c4p6%6%szdgr7w)jt1pyi)o$z)qd(ng%-f1tf9^ww35aldr5wf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
+TEMPLATE_DEBUG=DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -125,9 +139,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-NEWS_API_KEY = env('NEWS_API_KEY')
-TICKET_MASTER_API_KEY = env('TICKETMASTER_SECRET_KEY')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL= 'accounts/login'
